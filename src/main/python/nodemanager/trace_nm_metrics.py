@@ -4,6 +4,7 @@ import json
 import urllib2
 import socket
 import sys
+import time
 from datetime import datetime
 
 def get_heap_usage(logfile='/tmp/nm_heap_metrics.log'):
@@ -52,7 +53,20 @@ def get_container_nums(logfile='/tmp/nm_container_metrics.log'):
     log.close()
 
 if __name__ == "__main__":
-    metricslog=sys.argv[1]
-    containerlog=sys.argv[2]
-    get_heap_usage(logfile=metricslog)
-    get_container_nums(logfile=containerlog)
+    if len(sys.argv) != 3 and len(sys.argv) != 5:
+        raise Exception("Invalid number of arguments")
+
+    times_to_run=int(sys.argv[1])
+    time_interval=int(sys.argv[2])
+    if len(sys.argv) == 5:
+        metricslog=sys.argv[3]
+        containerlog=sys.argv[4]
+    else:
+        metricslog='/tmp/nm_heap_metrics.log'
+        containerlog='/tmp/nm_container_metrics.log'
+
+    for i in range(0, times_to_run):
+        print 'Times Run : {0}'.format(i)
+        get_heap_usage(logfile=metricslog)
+        get_container_nums(logfile=containerlog)
+        time.sleep(time_interval)
