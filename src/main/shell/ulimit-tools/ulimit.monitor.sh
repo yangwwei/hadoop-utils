@@ -2,10 +2,13 @@
 ## Set a reasonable threshold to monitor
 NOFILE_THRESHOLD=150000
 #####
-#####
 ## Sleep interval, default 1 minute
 #####
 SLEEP_INTERVAL=60
+#####
+## Max times of the loop
+#####
+LOOP_TIMES=10080
 #####
 ## Logs go to /tmp/ulimit-monitor-xxx/ dir
 #####
@@ -27,7 +30,7 @@ echo "**************************************************************************
 #####
 ## At most run 1 week, 1 minutes interval
 #####
-for (( i=1; i<10080; i++ ))
+for (( i=1; i<${LOOP_TIMES}; i++ ))
 do
   echo "***** Ulimit monitor #${i} *****"
   NOFILE_HDFS=`lsof -u hdfs | wc -l`
