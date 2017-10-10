@@ -1,0 +1,7 @@
+Copy stuff to all nodes
+
+./hostcopy /path/to/local/file /path/to/remote/file
+
+Run command on all nodes
+
+./hostrun some_command
